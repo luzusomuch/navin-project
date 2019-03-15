@@ -8,49 +8,51 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: 'home.html'
 })
 export class HomeComponent implements OnInit {
+  public dataSet: any = [];
   public tabs: any = [];
-  public transactions: any = [];
-  public total: number = 0;
+  public tabHeadersContent: any = {};
   public loading: boolean = false;
   public pagination: any = {
     page: 1,
     limit: 10
   };
-  public isFiltering: boolean = false;
+  public hasError: boolean = false;
 
   constructor(private router: Router, private service: AppService, private modalService: NgbModal, private toaster: ToasterService) {}
 
   ngOnInit() {
-    this.getTransactions();
+    this.getTabs();
   }
 
-  getTransactions(params:any = {}) {
-    this.transactions = [];
+  getTabs(params:any = {}) {
+    this.tabs = [];
     this.loading = true;
-    this.isFiltering = !!params.email;
+    this.hasError = false;
     let query: any = {
       limit: this.pagination.limit,
       offset: (this.pagination.page - 1) * this.pagination.limit,
     };
-    if (params.email) {
-      query.email = params.email;
-    }
-    this.service.getTransactionsLog(query).subscribe((data: any) => {
+    this.service.getListTabs(query).subscribe((resp: any) => {
+      const dataSet = resp.Dataset[0];
+      this.tabs = Object.keys(dataSet);
+      this.tabs.forEach(tabName => {
+        let tabContent = dataSet[tabName];
+        if (tabContent.length) {
+          let tab = tabContent[0];
+          this.tabHeadersContent[tabName] = Object.keys(tab);
+        }
+      });
+      this.dataSet = dataSet;
       this.loading = false;
-      if (data.success) {
-        this.transactions = data.data && data.data.ledgers ? data.data.ledgers.rows : [];
-        this.total = data.data && data.data.ledgers ? data.data.ledgers.count : 0;
-      } else {
-        this.toaster.pop('error', data.error && data.error.message ? data.error.message : 'Error when loading transactions');
-      }
     }, err => {
+      this.hasError = true;
       this.loading = false;
-      this.toaster.pop('error', err.error && err.error.message ? err.error.message : 'Error when loading transactions');
+      this.toaster.pop('error', err.error && err.error.message ? err.error.message : 'Error when loading data');
     });
   }
 
   pageChange() {
-    this.getTransactions();
+    this.getTabs();
   }
 
   clearFilter() {
@@ -58,6 +60,6 @@ export class HomeComponent implements OnInit {
       page: 1,
       limit: 10
     };
-    this.getTransactions();
+    this.getTabs();
   }
 }

@@ -10,11 +10,10 @@ import { ToasterConfig } from 'angular2-toaster';
 })
 export class AppComponent {
   title = 'Navin Project';
-  loggedIn = false;
   public config: ToasterConfig = new ToasterConfig({
-    showCloseButton: false, 
+    showCloseButton: true, 
     tapToDismiss: false, 
-    timeout: 3000,
+    timeout: 0,
     positionClass: 'toast-center'
   });
 
