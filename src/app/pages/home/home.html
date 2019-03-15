@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-sm-12">
+    <button class="btn btn-dropin uppercase" (click)="openCompareTransactionModal()">Compare Transactions</button>
+    <a *ngIf="isFiltering" (click)="clearFilter()" class="clear-filter-btn" href="javascript:void(0)"><i class="fa fa-times"></i> Clear Filter</a>
+  </div>
+</div>
+<table class="table table-no-border">
+  <thead>
+    <tr>
+      <td><strong>User Name</strong></td>
+      <td><strong>Amount</strong></td>
+      <td><strong>From Balance</strong></td>
+      <td><strong>To Balance</strong></td>
+      <td><strong>Transaction Type</strong></td>
+      <td><strong>Transaction Status</strong></td>
+      <td><strong>Created Date</strong></td>
+      <td><strong>Pending Date</strong></td>
+      <td><strong>Settled Date/ Rejected Date</strong></td>
+      <td><strong>Beginning Account Balance</strong></td>
+      <td><strong>Current Account Balance</strong></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="loading">
+      <td colspan="11">
+        <p class="text-center">Loading...</p>
+      </td>
+    </tr>
+    <tr *ngIf="!loading && !transactions.length">
+      <td colspan="11">
+        <p class="text-center">There is no transaction.</p>
+      </td>
+    </tr>
+    <tr *ngFor="let transaction of transactions" [ngClass]="{'is-risk': transaction.isRisk}">
+      <td>{{transaction.User.firstName + ' ' + transaction.User.lastName}}</td>
+      <td>{{transaction.amount}}</td>
+      <td>{{transaction.fromId}}</td>
+      <td>{{transaction.toId}}</td>
+      <td>{{transaction.type}}</td>
+      <td>{{transaction.status}}</td>
+      <td>{{transaction.createdAt|date:'short':'UTC'}}</td>
+      <td>{{!transaction.pending ? 'N/A' : transaction.pending|date:'short':'UTC'}}</td>
+      <td>{{!transaction.settled ? 'N/A' : transaction.settled|date:'short':'UTC'}}</td>
+      <td>${{transaction.balance + transaction.availableBalance + transaction.pendingBalance}}</td>
+      <td>${{transaction.coreproBalance + transaction.coreproAvailableBalance + transaction.coreproPendingBalance}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="11">
+        <ngb-pagination [(pageSize)]="pagination.limit" [collectionSize]="total" [(page)]="pagination.page" (pageChange)="pageChange()"></ngb-pagination>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

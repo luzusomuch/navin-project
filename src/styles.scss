@@ -1,0 +1,257 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'node_modules/angular2-toaster/src/toaster';
+
+html, body {
+  background: #f5f5f7;
+}
+
+header {
+  padding: 154px 0 100px;
+}
+
+@media (min-width: 992px) {
+  header {
+    padding: 156px 0 100px;
+  }
+}
+
+section {
+  padding: 150px 0;
+}
+
+.main-container {
+  margin-top: 106px;
+}
+.logo {
+  width: 50px;
+}
+.navbar-dropin, .bg-dropin {
+  background: #00b2af;
+}
+.btn-dropin {
+  color: #fff;
+  background-color: #00b2af;
+  border-color: #00b2af;
+
+  &:hover {
+    color: #fff;
+  }
+}
+a {
+  color: #00b2af;
+}
+
+#mainNav {
+  padding: 0;
+
+  .navbar-brand {
+    .navbar-brand-text {
+      font-size: 30px;
+      margin-left: 10px;
+      vertical-align: middle;
+      color: white;
+    }
+  }
+
+  .navbar-nav {
+    height: 80px;
+
+    > li {
+      padding: 20px 8px;
+
+      a {
+        color: white;
+        font-size: 16px;
+      }
+
+      &.active {
+        a {
+          border-bottom: 1px solid white;
+        }
+      }
+
+      &.user-menu {
+        padding-left: 10px;
+        border-left: 1px solid white;
+        position: relative;
+        cursor: pointer;
+
+        i {
+          font-size: 30px;
+          color: white;
+        }
+
+        ul {
+          display: none;
+        }
+
+        &:hover {
+          ul {
+            display: block;
+            position: absolute;
+            right: 0;
+            width: 230px;
+            list-style: none;
+            background: white;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 2px;
+            border: 1px solid #dfd7ca;
+            -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+
+            li {
+              a {
+                color: #98978b !important;
+                text-decoration: none !important;
+                text-transform: uppercase;
+                padding: 3px 20px;
+              }
+              &:hover {
+                text-decoration: none;
+                color: #98978b;
+                background-color: #f8f5f0;
+              }
+            }
+          }
+        }
+
+        .name {
+          color: white;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
+
+.error {
+  color: red;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.drawing-header, .winner2-header, .user-header {
+  margin-bottom: 10px;
+  h5 {
+    font-weight: bold;
+  }
+
+  .btn-group-custom {
+    text-align: right;
+
+    button {
+      margin-left: 5px;
+    }
+  }
+
+  .btn-dropin {
+    font-size: 14px;
+  }
+
+  .search-input-group {
+    .form-group {
+      width: 70%;
+      display: inline-block;
+    }
+    .btn {
+      width: 28%;
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+}
+
+.btn-warning {
+  margin-right: 10px;
+}
+
+.btn-create-drawing {
+  color: white !important;
+  background: #272726;
+}
+
+.btn, button {
+  outline: 0 !important;
+}
+
+.clear-fix {
+  clear: both;
+}
+
+.table-no-border {
+  thead {
+    tr {
+      td {
+        border-bottom: 1px solid #dee2e6;
+        border-top: 0;
+      }
+    }
+  }
+  tbody {
+    tr {
+      &.is-risk {
+        color: red;
+      }
+      td {
+        border-top: 0;
+      }
+    }
+  }
+}
+
+.page-link {
+  color: #43b3af;
+}
+.page-item.active .page-link {
+  background: #43b3af;
+  color: #fff;
+  border-color: #43b3af;
+}
+.dropdown-item {
+  cursor: pointer;
+
+  &.disabled {
+    cursor: not-allowed;
+    pointer-events: auto;
+  }
+}
+.winner-prizes-generated {
+  margin-top: 10px;
+}
+
+#toast-container {
+  div.toast {
+    width: 400px;
+    opacity: 1;
+    padding: 15px;
+
+    .toaster-icon {
+      display: none;
+    }
+  }
+}
+
+.backdrop[_ngcontent-c2], .spinner-three-bounce[_ngcontent-c2] {
+  position: fixed !important;
+}
+
+.form-group {
+  &.has-error {
+    input {
+      border-color: red;
+      box-shadow: 0 0 0 0.2rem rgba(255, 0, 47, 0.25);
+    }
+    .help-block {
+      color: red;
+    }
+  }
+}
+
+.clear-filter-btn {
+  margin-left: 10px;
+}
