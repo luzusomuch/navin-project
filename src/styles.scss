@@ -52,7 +52,7 @@ header {
   tbody {
     tr {
       border-bottom: 1px solid #dee2e6;
-      
+
       &.has-error {
         background: red;
         color: white;
@@ -62,4 +62,8 @@ header {
       }
     }
   }
+}
+
+ul.pagination {
+  float: right;
 }

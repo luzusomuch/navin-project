@@ -44,11 +44,20 @@
               <tr class="has-error" *ngIf="!loading && !dataSet[tab].length">
                 <td colspan="5">THERE ARE NO DATA</td>
               </tr>
-              <tr *ngFor="let data of dataSet[tab]">
+              <tr *ngFor="let data of dataSet[tab] | slice: (pagination.page - 1) * pagination.limit : (pagination.page - 1) * pagination.limit + pagination.limit">
                 <td *ngFor="let tabHeader of tabHeadersContent[tab]">{{data[tabHeader]}}</td>
               </tr>
             </tbody>
           </table>
+          <div class="row" *ngIf="dataSet[tab].length">
+            <div class="col-sm-4">
+              Showing {{(pagination.page -1) * pagination.limit + 1}} to {{pagination.page * pagination.limit > dataSet[tab].length ? dataSet[tab].length : pagination.page * pagination.limit }} of {{dataSet[tab].length}} entries
+            </div>
+            <div class="col-sm-4">&nbsp;</div>
+            <div class="col-sm-4">
+              <ngb-pagination [(page)]="pagination.page" [pageSize]="pagination.limit" [collectionSize]="dataSet[tab].length"></ngb-pagination>
+            </div>
+          </div>
         </ng-template>
       </ngb-tab>
     </ngb-tabset>

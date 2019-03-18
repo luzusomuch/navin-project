@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
     page: 1,
     limit: 10
   };
-  public limits: any = [10, 20, 30];
+  public limits: any = [1, 5, 10, 20, 30];
   public hasError: boolean = false;
 
   constructor(private router: Router, private service: AppService, private modalService: NgbModal, private toaster: ToasterService) {}
