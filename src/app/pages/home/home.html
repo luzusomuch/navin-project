@@ -23,7 +23,7 @@
               <div class="row">
                 <div class="col-sm-2 input-lable">Search</div>
                 <div class="col-sm-8">
-                  <input class="form-control" type="text" name="searchInput" [(ngModel)]="queryFilter">
+                  <input class="form-control" type="text" name="searchInput" [(ngModel)]="filterQuery">
                 </div>
               </div>
             </div>
@@ -41,21 +41,21 @@
               <tr class="has-error" *ngIf="hasError && !loading">
                 <td colspan="5">ERROR RETRIEVING DATA</td>
               </tr>
-              <tr class="has-error" *ngIf="!loading && !dataSet[tab].length">
+              <tr class="has-error" *ngIf="!loading && (dataSet[tab] | filterQueryPipe: filterQuery: tabHeadersContent[tab] | getArrayLengthPipe) === 0">
                 <td colspan="5">THERE ARE NO DATA</td>
               </tr>
-              <tr *ngFor="let data of dataSet[tab] | slice: (pagination.page - 1) * pagination.limit : (pagination.page - 1) * pagination.limit + pagination.limit">
+              <tr *ngFor="let data of dataSet[tab] | filterQueryPipe: filterQuery: tabHeadersContent[tab] | slice: (pagination.page - 1) * pagination.limit : (pagination.page - 1) * pagination.limit + pagination.limit">
                 <td *ngFor="let tabHeader of tabHeadersContent[tab]">{{data[tabHeader]}}</td>
               </tr>
             </tbody>
           </table>
-          <div class="row" *ngIf="dataSet[tab].length">
+          <div class="row" *ngIf="(dataSet[tab] | filterQueryPipe: filterQuery: tabHeadersContent[tab] | getArrayLengthPipe) !== 0">
             <div class="col-sm-4">
-              Showing {{(pagination.page -1) * pagination.limit + 1}} to {{pagination.page * pagination.limit > dataSet[tab].length ? dataSet[tab].length : pagination.page * pagination.limit }} of {{dataSet[tab].length}} entries
+              Showing {{(pagination.page -1) * pagination.limit + 1}} to {{pagination.page * pagination.limit > (dataSet[tab] | filterQueryPipe: filterQuery: tabHeadersContent[tab] | getArrayLengthPipe) ? (dataSet[tab] | filterQueryPipe: filterQuery: tabHeadersContent[tab] | getArrayLengthPipe) : pagination.page * pagination.limit }} of {{(dataSet[tab] | filterQueryPipe: filterQuery: tabHeadersContent[tab] | getArrayLengthPipe)}} entries
             </div>
             <div class="col-sm-4">&nbsp;</div>
             <div class="col-sm-4">
-              <ngb-pagination [(page)]="pagination.page" [pageSize]="pagination.limit" [collectionSize]="dataSet[tab].length"></ngb-pagination>
+              <ngb-pagination [(page)]="pagination.page" [pageSize]="pagination.limit" [collectionSize]="dataSet[tab] | filterQueryPipe: filterQuery: tabHeadersContent[tab] | getArrayLengthPipe"></ngb-pagination>
             </div>
           </div>
         </ng-template>

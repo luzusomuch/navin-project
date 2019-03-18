@@ -13,12 +13,16 @@ import { ToasterModule } from 'angular2-toaster';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UiSwitchModule } from 'ngx-toggle-switch';
+import { FilterQueryPipePipe } from './pipes/filter-query-pipe.pipe';
+import { GetArrayLengthPipe } from './pipes/get-array-length-pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    FilterQueryPipePipe,
+    GetArrayLengthPipe
   ],
   imports: [
     BrowserModule,
