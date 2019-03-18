@@ -13,7 +13,7 @@ export class AppService {
   constructor(private http: HttpClient) { }
 
   getListTabs(params: any = {}) {
-    return this.http.post(API_URI, {caseId}, {headers});
-    // return this.http.get(`assets/sample.json`, {headers, params});
+    // return this.http.post(API_URI, {caseId}, {headers});
+    return this.http.get(`assets/sample.json`, {headers, params});
   }
 }

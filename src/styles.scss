@@ -2,7 +2,7 @@
 @import 'node_modules/angular2-toaster/src/toaster';
 
 html, body {
-  background: #f5f5f7;
+  background: #FFF;
 }
 
 header {
@@ -15,9 +15,44 @@ header {
   }
 }
 
+.nav-tabs {
+  .nav-link {
+    border-right: 2px solid #dee2e6;
+    border-radius: 0;
+
+    &.active {
+      color: #FFF;
+      background: #007bff;
+    }
+  } 
+}
+
+.filter-section {
+  margin: 10px 0;
+
+  .input-lable {
+    margin-top: 7px;
+  }
+}
+
 .table {
+  td, th {
+    border-right: 1px solid #dee2e6;
+  }
+  thead {
+    tr {
+      td {
+        strong {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
   tbody {
     tr {
+      border-bottom: 1px solid #dee2e6;
+      
       &.has-error {
         background: red;
         color: white;

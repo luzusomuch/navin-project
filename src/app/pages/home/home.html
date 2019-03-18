@@ -1,33 +1,57 @@
 <div class="row">
-  <ngb-tabset>
-    <ngb-tab *ngFor="let tab of tabs">
-      <ng-template ngbTabTitle>
-        {{tab}}
-      </ng-template>
-      <ng-template ngbTabContent>
-        <table class="table">
-          <thead>
-            <tr>
-              <td *ngFor="let tabHeader of tabHeadersContent[tab]"><strong>{{tabHeader}}</strong></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngIf="loading">
-              <td>Loading data</td>
-            </tr>
-            <tr class="has-error" *ngIf="hasError && !loading">
-              <td colspan="5">ERROR RETRIEVING DATA</td>
-            </tr>
-            <tr class="has-error" *ngIf="!loading && !dataSet[tab].length">
-              <td colspan="5">THERE ARE NO DATA</td>
-            </tr>
-            <tr *ngFor="let data of dataSet[tab]">
-              <td *ngFor="let tabHeader of tabHeadersContent[tab]">{{data[tabHeader]}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
+  <div class="col-sm-12">
+    <ngb-tabset>
+      <ngb-tab *ngFor="let tab of tabs">
+        <ng-template ngbTabTitle>
+          {{tab}}
+        </ng-template>
+        <ng-template ngbTabContent>
+          <div class="filter-section row">
+            <div class="col-sm-3">
+              <div class="row">
+                <div class="col-sm-2 input-lable">Show</div>
+                <div class="col-sm-4">
+                  <select class="form-control" [(ngModel)]="pagination.limit">
+                    <option *ngFor="let limit of limits" value="{{limit}}">{{limit}}</option>
+                  </select>              
+                </div>
+                <div class="col-sm-2 input-lable">entries</div>
+              </div>
+            </div>
+            <div class="col-sm-6">&nbsp;</div>
+            <div class="col-sm-3">
+              <div class="row">
+                <div class="col-sm-2 input-lable">Search</div>
+                <div class="col-sm-8">
+                  <input class="form-control" type="text" name="searchInput" [(ngModel)]="queryFilter">
+                </div>
+              </div>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <td *ngFor="let tabHeader of tabHeadersContent[tab]"><strong>{{tabHeader}}</strong></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="loading">
+                <td>Loading data</td>
+              </tr>
+              <tr class="has-error" *ngIf="hasError && !loading">
+                <td colspan="5">ERROR RETRIEVING DATA</td>
+              </tr>
+              <tr class="has-error" *ngIf="!loading && !dataSet[tab].length">
+                <td colspan="5">THERE ARE NO DATA</td>
+              </tr>
+              <tr *ngFor="let data of dataSet[tab]">
+                <td *ngFor="let tabHeader of tabHeadersContent[tab]">{{data[tabHeader]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>

@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     page: 1,
     limit: 10
   };
+  public limits: any = [10, 20, 30];
   public hasError: boolean = false;
 
   constructor(private router: Router, private service: AppService, private modalService: NgbModal, private toaster: ToasterService) {}
@@ -33,7 +34,11 @@ export class HomeComponent implements OnInit {
       offset: (this.pagination.page - 1) * this.pagination.limit,
     };
     this.service.getListTabs(query).subscribe((resp: any) => {
-      const dataSet = resp.Dataset[0];
+      let dataSet: any = {};
+      resp.Dataset.forEach(data => {
+        const key = Object.keys(data).toString();
+        dataSet[key] = data[key];
+      });
       this.tabs = Object.keys(dataSet);
       this.tabs.forEach(tabName => {
         let tabContent = dataSet[tabName];
