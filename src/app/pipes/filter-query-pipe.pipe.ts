@@ -12,7 +12,7 @@ export class FilterQueryPipePipe implements PipeTransform {
     let result = []; 
     array.forEach(item => {
       filterParams.some(param => {
-        if (item[param] && item[param].toString() === filterQuery) {
+        if (item[param] && item[param].toString().search(filterQuery) !== -1) {
           result.push(item);
           return true;
         }
